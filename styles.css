@@ -430,9 +430,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* per-doodle sizes: matches the class on each .doodle div in professional.html */
-.doodle.me img   { width: 6rem; }     /* who am i */
-.doodle.slug img { width: 5.5rem; }   /* education */
+.doodle.me img   { width: 8rem; }     /* who am i */
+.doodle.slug img { width: 6rem; }   /* education */
 .doodle.thub img { width: 6.5rem; }   /* entrepreneurship */
+.doodle.interests img { width: 7rem; } /* interests */
 
 /* Logos spread evenly from the top to the bottom of the block,
    each one nudged further right than the one above it. */
@@ -443,8 +444,8 @@ a { color: inherit; text-decoration: none; }
   align-items: flex-start;
   align-self: stretch;               /* fill the block's full height */
   width: 100%;
-  --logo: 5rem;      /* size of each logo */
-  --step-x: 1.4rem;  /* how far right each next logo moves */
+  --logo: 4.5rem;      /* size of each logo */
+  --step-x: 4rem;    /* how far right the even (fbi, blueprint) logos sit */
 }
 
 .stack img {
