@@ -227,7 +227,7 @@ a { color: inherit; text-decoration: none; }
    appears on hover, running down the right edge. */
 .object[data-section="professional"] {
   --w: 13vw;  --tilt: 6deg;
-  top: 10%;   left: 67%;
+  top: 15%;   left: 70%;
 }
 .object[data-section="professional"] .filename {
   position: absolute;
@@ -278,12 +278,12 @@ a { color: inherit; text-decoration: none; }
 
 /* food: plate, bottom right */
 .object[data-section="food"] {
-  --w: 14vw;  --tilt: 5deg;
+  --w: 15vw;  --tilt: 5deg;
   top: 59%;   left: 67%;
 }
 .object[data-section="food"] .caption {
-  bottom: 0.6rem;
-  right: -0.4rem;
+  bottom: 2.5rem;
+  right: -0.8rem;
   transform: rotate(-45deg);
   transform-origin: center;
 }
