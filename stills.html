@@ -11,12 +11,39 @@
 </head>
 <body class="subpage">
 
-  <a class="back" href="index.html">&larr; back</a>
+  <header class="subpage-header">
+    <a class="back" href="index.html">&larr; home</a>
+  </header>
 
-  <main class="page">
-    <h1>stills</h1>
-    <p class="coming-soon">coming soon</p>
+  <main class="stills">
+
+    <h1 class="page-title">stills</h1>
+    <p class="stills-intro">my favorite pictures shot on my <span class="camera-name">canon powershot g10</span></p>
+
+    <!--
+      Photos live in assets/stills/. List them here in the order you want.
+      The first one shows on load; arrows and the ← → keys cycle through.
+    -->
+    <div class="viewer"
+         data-photos='["assets/stills/1.jpg", "assets/stills/2.jpg", "assets/stills/3.jpg", "assets/stills/4.jpg", "assets/stills/5.jpg", "assets/stills/6.jpg", "assets/stills/7.jpg", "assets/stills/8.jpg", "assets/stills/9.jpg", "assets/stills/10.jpg", "assets/stills/11.jpg", "assets/stills/12.jpg", "assets/stills/13.jpg", "assets/stills/14.jpg", "assets/stills/15.jpg", "assets/stills/16.jpg", "assets/stills/17.jpg", "assets/stills/18.jpg", "assets/stills/19.jpg", "assets/stills/20.jpg", "assets/stills/21.jpg", "assets/stills/22.jpg", "assets/stills/23.jpg"]'>
+
+      <button class="arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+
+      <div class="camera">
+        <img class="camera-body" src="assets/images/camera.webp" alt="Back of a Canon PowerShot G10">
+        <div class="screen">
+          <img class="photo" alt="">
+        </div>
+      </div>
+
+      <button class="arrow next" type="button" aria-label="Next photo">&rarr;</button>
+
+    </div>
+
+    <p class="counter"><span class="current">1</span> / <span class="total">23</span></p>
+
   </main>
 
+  <script src="script.js"></script>
 </body>
 </html>

@@ -119,3 +119,57 @@
 
   setTimeout(step, 400);
 })();
+
+// ---------- stills viewer ----------
+// Cycles through the photos listed in data-photos on the .viewer element.
+
+(function () {
+  const viewer = document.querySelector(".viewer");
+  if (!viewer) return;
+
+  let photos = [];
+  try { photos = JSON.parse(viewer.dataset.photos); } catch (e) { return; }
+  if (!photos.length) return;
+
+  const img     = viewer.querySelector(".photo");
+  const prev    = viewer.querySelector(".prev");
+  const next    = viewer.querySelector(".next");
+  const current = document.querySelector(".counter .current");
+  const total   = document.querySelector(".counter .total");
+
+  let index = 0;
+  if (total) total.textContent = photos.length;
+
+  // Preload neighbours so switching feels instant.
+  function preload(i) {
+    const pre = new Image();
+    pre.src = photos[(i + photos.length) % photos.length];
+  }
+
+  function show(i, animate = true) {
+    index = (i + photos.length) % photos.length;
+    const swap = () => {
+      img.src = photos[index];
+      img.onload = () => img.classList.remove("fading");
+      if (current) current.textContent = index + 1;
+      preload(index + 1);
+      preload(index - 1);
+    };
+    if (animate) {
+      img.classList.add("fading");
+      setTimeout(swap, 200);
+    } else {
+      swap();
+    }
+  }
+
+  prev.addEventListener("click", () => show(index - 1));
+  next.addEventListener("click", () => show(index + 1));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft")  show(index - 1);
+    if (e.key === "ArrowRight") show(index + 1);
+  });
+
+  show(0, false);
+})();
