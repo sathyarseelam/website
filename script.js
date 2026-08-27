@@ -65,3 +65,57 @@
   audio.addEventListener("pause", () => setPlaying(false));
   audio.addEventListener("play",  () => setPlaying(true));
 })();
+
+// ---------- rotating roles (professional page) ----------
+// Types a role, pauses, backspaces it, then types the next one.
+
+(function () {
+  const el = document.querySelector(".role");
+  if (!el) return;
+
+  let roles = [];
+  try { roles = JSON.parse(el.dataset.roles); } catch (e) { return; }
+  if (!roles.length) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) {
+    el.textContent = roles[0];
+    return;
+  }
+
+  const typeDelay   = 70;    // ms per character while typing
+  const eraseDelay  = 40;    // ms per character while deleting
+  const holdDelay   = 1600;  // ms to show the full word
+  const gapDelay    = 300;   // ms pause before typing the next word
+
+  let wordIndex = 0;
+  let charIndex = 0;
+  let deleting  = false;
+
+  function step() {
+    const word = roles[wordIndex];
+
+    if (!deleting) {
+      charIndex += 1;
+      el.textContent = word.slice(0, charIndex);
+      if (charIndex === word.length) {
+        deleting = true;
+        setTimeout(step, holdDelay);
+        return;
+      }
+      setTimeout(step, typeDelay);
+    } else {
+      charIndex -= 1;
+      el.textContent = word.slice(0, charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % roles.length;
+        setTimeout(step, gapDelay);
+        return;
+      }
+      setTimeout(step, eraseDelay);
+    }
+  }
+
+  setTimeout(step, 400);
+})();
