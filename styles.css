@@ -1,0 +1,359 @@
+/* ---------- base ---------- */
+
+:root {
+  --ink: #2b1d14;
+  --paper: #ffffff;
+  --muted: #6b6b6b;
+  --vinyl: #3f7fd6;        /* blue record */
+  --vinyl-dark: #2f66b3;   /* groove lines */
+  --label: #eae4d3;        /* paper label in the middle */
+  --display: "League Script", cursive;
+  --mono: "Special Elite", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mono);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- the desk ---------- */
+
+.desk {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------- greeting ---------- */
+
+.greeting {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  width: max-content;
+}
+
+.greeting h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.tagline {
+  margin: 1.6rem 0 0;
+  min-height: 1.6em;
+  font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.tagline.typing::after {
+  content: "|";
+  margin-left: 0.1em;
+  animation: blink 0.9s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- objects ---------- */
+
+.object {
+  position: absolute;
+  display: block;
+  width: var(--w, 12vw);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 220ms ease;
+  cursor: pointer;
+}
+
+.object:hover,
+.object:focus-within {
+  transform: rotate(var(--tilt, 0deg)) scale(1.05);
+  z-index: 3;
+}
+
+.object:focus-visible {
+  outline: 2px dashed var(--ink);
+  outline-offset: 8px;
+}
+
+.object img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.12));
+}
+
+.caption {
+  position: absolute;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.object:hover .caption {
+  opacity: 1;
+}
+
+/* ---------- music player ---------- */
+
+.player .album {
+  position: relative;
+  z-index: 1;
+}
+
+/* The record: blue disc with fine grooves, a paper label, and a light
+   sheen across it so the spin is visible. Hidden until playing. */
+.player .vinyl {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 4%;
+  width: 92%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background:
+    /* light reflection sweeping across one side, this is what shows the rotation */
+    conic-gradient(from 200deg,
+      rgba(255, 255, 255, 0) 0deg,
+      rgba(255, 255, 255, 0.28) 25deg,
+      rgba(255, 255, 255, 0) 60deg,
+      rgba(255, 255, 255, 0) 180deg,
+      rgba(255, 255, 255, 0.18) 205deg,
+      rgba(255, 255, 255, 0) 240deg),
+    /* center label with a thin ring */
+    radial-gradient(circle,
+      var(--label) 0 15%,
+      var(--vinyl-dark) 15.5% 16.5%,
+      transparent 17%),
+    /* grooves */
+    repeating-radial-gradient(circle,
+      var(--vinyl) 0 1.5px,
+      var(--vinyl-dark) 1.5px 2.5px);
+  /* spindle hole */
+  -webkit-mask: radial-gradient(circle, transparent 0 2.5%, #000 3%);
+          mask: radial-gradient(circle, transparent 0 2.5%, #000 3%);
+  transform: translateY(0);
+  visibility: hidden;
+  opacity: 0;
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1),
+              opacity 200ms ease,
+              visibility 0s linear 200ms;
+}
+
+/* Playing: reveal the record, slide it partway out of the sleeve, and spin it. */
+.player.playing .vinyl {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-40%);
+  animation: spin 2.2s linear infinite;
+  transition-delay: 0s;
+}
+
+@keyframes spin {
+  from { transform: translateY(-40%) rotate(0deg); }
+  to   { transform: translateY(-40%) rotate(360deg); }
+}
+
+/* Play / pause: a bare icon centered on the album, shown on hover. */
+.player .play {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.player:hover .play,
+.player .play:focus-visible,
+.player.playing .play {
+  opacity: 1;
+}
+
+.player .play svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: var(--ink);
+  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.8));
+}
+
+.player .icon-pause { display: none; }
+.player.playing .icon-play { display: none; }
+.player.playing .icon-pause { display: block; }
+
+/* ---------- per-object placement ---------- */
+
+/* stills: film strip, top left */
+.object[data-section="stills"] {
+  --w: 5.5vw; --tilt: -12deg;
+  top: 12%;   left: 20%;
+}
+.object[data-section="stills"] .caption {
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -0.4rem);
+}
+
+/* professional: folder, top right.
+   .filename is always visible under the folder; .caption "professional"
+   appears on hover, running down the right edge. */
+.object[data-section="professional"] {
+  --w: 13vw;  --tilt: 6deg;
+  top: 10%;   left: 67%;
+}
+.object[data-section="professional"] .filename {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 0.3rem;
+  text-align: center;
+  top: 90%;
+  left: 8%;
+  font-size: 0.65rem;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  transform: rotate(-10deg);
+}
+.object[data-section="professional"] .caption {
+  top: 28%;
+  left: 100%;
+  transform: translate(0.3rem, -50%) rotate(85deg);
+  transform-origin: left center;
+}
+
+/* music: album, bottom left */
+.object[data-section="music"] {
+  --w: 12vw;  --tilt: -8deg;
+  top: 63%;   left: 22%;
+}
+.object[data-section="music"] .caption {
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0.4rem);
+}
+
+/* travel: paper plane, bottom middle */
+.object[data-section="travel"] {
+  --w: 16vw;  --tilt: 8deg;
+  top: 70%;   left: 42%;
+}
+.object[data-section="travel"] .caption {
+  bottom: 100%;
+  left: 45%;
+  transform: rotate(-20deg) translateY(2.2rem);
+  transform-origin: left bottom;
+}
+
+/* food: plate, bottom right */
+.object[data-section="food"] {
+  --w: 14vw;  --tilt: 5deg;
+  top: 59%;   left: 67%;
+}
+.object[data-section="food"] .caption {
+  bottom: 0.6rem;
+  right: -0.4rem;
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+/* ---------- mobile note ---------- */
+
+.mobile-note {
+  display: none;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 1rem;
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 720px) {
+  .desk {
+    min-height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.5rem 1.5rem;
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .greeting {
+    position: static;
+    transform: none;
+    width: auto;
+    flex-basis: 100%;
+  }
+
+  .object {
+    position: relative;
+    width: 38%;
+    --tilt: 0deg;
+    margin-bottom: 1.2rem;
+  }
+
+  .object .caption {
+    opacity: 1;
+    top: 100%;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    width: auto;
+    margin: 0;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    transform: translate(-50%, 0.3rem);
+  }
+
+  .object[data-section="professional"] .filename {
+    position: static;
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  /* No hover on touch: always show the play button. */
+  .player .play { opacity: 1; }
+
+  .mobile-note { display: block; }
+}
+
+/* ---------- accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .object, .caption, .player .vinyl { transition: none; }
+  .tagline.typing::after { animation: none; }
+  .player.playing .vinyl { animation: none; transform: translateY(-40%); }
+}
