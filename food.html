@@ -6,17 +6,232 @@
   <title>food · Sathya</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=League+Script&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Script&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="subpage">
 
-  <a class="back" href="index.html">&larr; back</a>
+  <header class="subpage-header">
+    <a class="back" href="index.html">&larr; home</a>
+  </header>
 
-  <main class="page">
-    <h1>food</h1>
-    <p class="coming-soon">coming soon</p>
+  <main class="food">
+
+    <h1 class="page-title">food</h1>
+    <p class="food-intro">I grew up around a café, so eating out is half research, half hobby. So here's a short receipt for the very best, and the photo evidence.</p>
+
+    <!-- ===== receipt: your top spots ===== -->
+    <section class="receipt-wrap">
+      <div class="receipt">
+        <div class="receipt-head">
+          <p class="receipt-title">SATHYA'S TOP SPOTS</p>
+          <p>east to west coast</p>
+          <p>table 01 &middot; guest 1</p>
+        </div>
+
+        <!--
+          One line per spot: name on the left, city on the right.
+          Add or remove lines freely; the "total" below is just text you update.
+        -->
+        <ol class="receipt-items">
+          <li><span class="item">THub Cafe</span><span class="dots"></span><span class="city">Mountain House, CA</span></li>
+          <li><span class="item">BARCA Pier & Bar</span><span class="dots"></span><span class="city">Alexandria, VA</span></li>
+          <li><span class="item">PopUp Bagels</span><span class="dots"></span><span class="city">Georgetown, DC</span></li>
+          <li><span class="item">Blank Street</span><span class="dots"></span><span class="city">Georgetown, DC</span></li>
+          <li><span class="item">Tiger Dumplings</span><span class="dots"></span><span class="city">Arlington, VA</span></li>
+          <li><span class="item">Shrine Coffee</span><span class="dots"></span><span class="city">Santa Cruz, CA</span></li>
+          <li><span class="item">Von's 1000 Spirits</span><span class="dots"></span><span class="city">Seattle, WA</span></li>
+          <li><span class="item">Din Tai Fung</span><span class="dots"></span><span class="city">Santa Clara, CA</span></li>
+        </ol>
+
+        <div class="receipt-total">
+          <p><span>SPOTS EATEN</span><span class="dots"></span><span>130</span></p>
+          <p><span>STILL HUNGRY</span><span class="dots"></span><span>YES!</span></p>
+        </div>
+
+        <div class="barcode" aria-hidden="true"></div>
+
+        <p class="receipt-foot">full rankings on beli &darr;</p>
+        <a class="pill beli" href="https://beliapp.co/app/sathyarseelam" target="_blank" rel="noopener">see my beli &nearr;</a>
+        <p class="receipt-foot">thank you, come again :P</p>
+      </div>
+    </section>
+
+    <!-- ===== photo grid ===== -->
+    <section class="gallery">
+      <h2 class="eyebrow">everything else i've eaten</h2>
+
+      <!--
+        Photos live in assets/food/. Copy a <figure> block per photo.
+        Hover shows the caption on desktop; on mobile it shows underneath.
+      -->
+      <div class="grid">
+
+        <figure class="tile">
+          <img src="assets/food/1.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">11th Hour Coffee</span>
+            <span class="where">Santa Cruz, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/2.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Cafe du Monde</span>
+            <span class="where">New Orleans, LA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/3.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Good Catch | Urban Thai Bistro</span>
+            <span class="where">New Orleans, LA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/4.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Walnut Ave Cafe</span>
+            <span class="where">Santa Cruz, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/5.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Shoji</span>
+            <span class="where">San Francisco, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/6.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Mo's Dumplings</span>
+            <span class="where">Santa Cruz, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/7.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Levain Bakery</span>
+            <span class="where">Georgetown, DC</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/8.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Dough Zone Dumpling House</span>
+            <span class="where">San Jose, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/9.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Palmetto's Superfoods</span>
+            <span class="where">Santa Cruz, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/10.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Blast & Brew</span>
+            <span class="where">San Jose, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/11.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Pasta Viva</span>
+            <span class="where">Irvine, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/12.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">My Home Thai</span>
+            <span class="where">Stafford, VA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/13.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Mylapore</span>
+            <span class="where">Sunnyvale, CA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/14.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Dok Khao Thai</span>
+            <span class="where">Woodbridge, VA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/15.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Bar Chinois</span>
+            <span class="where">Arlington, VA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/16.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">DUA DC Coffee</span>
+            <span class="where">Washington, DC</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/17.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Dolphin Cafe</span>
+            <span class="where">Washington, DC</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/18.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Chai Pani</span>
+            <span class="where">Washington, DC</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/19.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Aroy Mak Thai</span>
+            <span class="where">Seattle, WA</span>
+          </figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="assets/food/20.jpg" alt="" loading="lazy">
+          <figcaption>
+            <span class="place">Franco's Ice Cream</span>
+            <span class="where">Ocean City, NJ</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
   </main>
 
+  <script src="script.js"></script>
 </body>
 </html>

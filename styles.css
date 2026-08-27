@@ -502,7 +502,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- stills page ---------- */
 
 .stills {
-  max-width: 80rem;
+  max-width: 64rem;
   margin: 2rem auto 0;
   font-family: var(--sans);
   color: var(--text);
@@ -598,6 +598,221 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
+/* ---------- food page ---------- */
+
+.food {
+  max-width: 64rem;
+  margin: 2rem auto 0;
+  font-family: var(--sans);
+  color: var(--text);
+}
+
+.food-intro {
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.6;
+  max-width: 44rem;
+  margin: 0.75rem 0 0;
+}
+
+/* receipt */
+.receipt-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 3.5rem 0 4rem;
+}
+
+.receipt {
+  --paper-receipt: #faf7ee;
+  position: relative;
+  width: min(100%, 22rem);
+  padding: 2.4rem 1.6rem 2.6rem;
+  color: #3b3730;                     /* slightly faded ink */
+  font-family: "VT323", var(--mono);
+  font-size: 1.25rem;
+  line-height: 1.45;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  transform: rotate(-0.6deg);
+  background-color: var(--paper-receipt);
+  background-image:
+    /* lightly yellowed edges */
+    radial-gradient(ellipse at center,
+      rgba(255, 253, 246, 0.6) 0%,
+      rgba(240, 232, 212, 0.25) 70%,
+      rgba(222, 210, 180, 0.35) 100%),
+    /* faint thermal-print scan lines */
+    repeating-linear-gradient(0deg,
+      rgba(0, 0, 0, 0.025) 0 1px,
+      transparent 1px 3px),
+    /* paper grain */
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.30  0 0 0 0 0.22  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: auto, auto, 160px 160px;
+}
+
+/* a soft fold line across the middle */
+.receipt-items::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent, rgba(0, 0, 0, 0.08) 20%, rgba(0, 0, 0, 0.08) 80%, transparent);
+  pointer-events: none;
+}
+
+/* torn top and bottom edges */
+.receipt::before,
+.receipt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: var(--paper-receipt);
+}
+.receipt::before {
+  top: -10px;
+  clip-path: polygon(0 100%, 3% 0, 6% 100%, 9% 0, 12% 100%, 15% 0, 18% 100%, 21% 0, 24% 100%, 27% 0, 30% 100%, 33% 0, 36% 100%, 39% 0, 42% 100%, 45% 0, 48% 100%, 51% 0, 54% 100%, 57% 0, 60% 100%, 63% 0, 66% 100%, 69% 0, 72% 100%, 75% 0, 78% 100%, 81% 0, 84% 100%, 87% 0, 90% 100%, 93% 0, 96% 100%, 100% 0, 100% 100%);
+}
+.receipt::after {
+  bottom: -10px;
+  clip-path: polygon(0 0, 3% 100%, 6% 0, 9% 100%, 12% 0, 15% 100%, 18% 0, 21% 100%, 24% 0, 27% 100%, 30% 0, 33% 100%, 36% 0, 39% 100%, 42% 0, 45% 100%, 48% 0, 51% 100%, 54% 0, 57% 100%, 60% 0, 63% 100%, 66% 0, 69% 100%, 72% 0, 75% 100%, 78% 0, 81% 100%, 84% 0, 87% 100%, 90% 0, 93% 100%, 96% 0, 100% 100%, 100% 0);
+}
+
+.receipt p { margin: 0; }
+
+.receipt-head {
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #b7ad98;
+}
+
+.receipt-title {
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+}
+
+.receipt-items {
+  position: relative;
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  counter-reset: spot;
+}
+
+.receipt-items li,
+.receipt-total p {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.receipt-items li::before {
+  counter-increment: spot;
+  content: counter(spot, decimal-leading-zero) " ";
+  color: #8a877e;
+  flex: none;
+}
+
+.receipt .item { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.receipt .city { flex: none; text-align: right; }
+
+.receipt .dots {
+  flex: 1;
+  border-bottom: 2px dotted #b7ad98;
+  transform: translateY(-0.35em);
+  min-width: 1rem;
+}
+
+.receipt-items li { padding: 0.15rem 0; }
+.receipt-items li:hover .item { text-decoration: underline; text-underline-offset: 3px; }
+
+.receipt-total {
+  padding: 0.8rem 0;
+  border-top: 1px dashed #b7ad98;
+  border-bottom: 1px dashed #b7ad98;
+}
+
+.barcode {
+  height: 3rem;
+  margin: 1.2rem auto 0.4rem;
+  width: 80%;
+  background: repeating-linear-gradient(90deg,
+    #3b3730 0 2px, transparent 2px 4px,
+    #3b3730 4px 5px, transparent 5px 8px,
+    #3b3730 8px 11px, transparent 11px 13px,
+    #3b3730 13px 14px, transparent 14px 17px);
+  opacity: 0.85;
+}
+
+.receipt-foot {
+  text-align: center;
+  color: #7a7466;
+  margin-top: 0.6rem !important;
+}
+
+.receipt .beli {
+  display: block;
+  width: max-content;
+  margin: 0.8rem auto 0;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-color: #b7ad98;
+}
+
+/* photo grid */
+.gallery .eyebrow { margin-bottom: 1.2rem; text-align: center; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   /* 4 across, so 20 photos = 5 rows */
+  gap: 0.75rem;
+  max-width: 56rem;                        /* keeps the tiles compact on wide screens */
+  margin: 0 auto;
+}
+
+.tile {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f2f2f0;
+  aspect-ratio: 1 / 1;                     /* square tiles: vertical and horizontal shots take the same space */
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                       /* crop to fill the tile */
+  display: block;
+  transition: transform 400ms ease;
+}
+
+.tile:hover img { transform: scale(1.03); }
+
+.tile figcaption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.15rem;
+  padding: 1rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.tile:hover figcaption { opacity: 1; }
+
+.tile .place { font-family: var(--sans); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em; }
+.tile .where { font-size: 0.8rem; opacity: 0.85; }
+
 /* ---------- mobile note ---------- */
 
 .mobile-note {
@@ -666,6 +881,20 @@ a { color: inherit; text-decoration: none; }
   .arrow.prev { justify-self: end; }
   .arrow.next { justify-self: start; }
 
+  /* food page: two columns, captions under the photo */
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .tile { aspect-ratio: auto; }
+  .tile img { height: auto; aspect-ratio: 1 / 1; }
+  .tile figcaption {
+    position: static;
+    opacity: 1;
+    color: var(--text);
+    background: none;
+    padding: 0.5rem 0.2rem 0.6rem;
+  }
+  .tile .where { opacity: 1; color: var(--muted); }
+  .receipt { transform: none; }
+
   /* No hover on touch: always show the play button. */
   .player .play { opacity: 1; }
 
@@ -675,7 +904,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- accessibility ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .object, .caption, .player .vinyl, .stack img, .photo, .arrow { transition: none; }
+  .object, .caption, .player .vinyl, .stack img, .photo, .arrow, .tile img, .tile figcaption { transition: none; }
   .tagline.typing::after, .role::after { animation: none; }
   .player.playing .vinyl { animation: none; transform: translateY(-40%); }
 }
